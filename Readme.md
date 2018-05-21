@@ -5,8 +5,6 @@
 Например: ```index.js inccoint 10 i```
 
 Для выполнения задания предлагается использовать парсер Esprima.
-##   Установка
-``` npm install Minikent/js_parser ```
 
 ## Запуск
 ``` node index.js path/to/directory/with/js ```

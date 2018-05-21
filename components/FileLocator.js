@@ -14,6 +14,7 @@ FileLocator.prototype = {
         console.log(err);
         return;
       }
+      files = files.filter(file => { return /\.js$/.test(file); });
       callback(files, dirname);
     });
   }
