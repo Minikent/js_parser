@@ -1,0 +1,23 @@
+{
+  "name": "js_parser",
+  "version": "1.0.0",
+  "description": "function search and describe",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Minikent/js_parser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Minikent/js_parser/issues"
+  },
+  "homepage": "https://github.com/Minikent/js_parser#readme",
+  "dependencies": {
+    "esprima": "^4.0.0",
+    "mocha": "^5.2.0"
+  }
+}
