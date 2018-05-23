@@ -8,9 +8,6 @@ EsprimaTreeIterator.prototype = {
       return;
     }
     this.callback(tree);
-    if (tree.type == 'ArrowFunctionExpression') {
-      debugger;
-    }
     switch (tree.type) {
       case 'BlockStatement':
       case 'Program': {
