@@ -12,3 +12,7 @@ function fake () {};
 (function c(k, l, m) {
 
 })(1, 2, 3);
+
+$.each(arr, function (index, value){
+  if (value.id != e) arrelem.push(value);
+});

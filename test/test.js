@@ -4,12 +4,20 @@ var FileLocator = require('../components/FileLocator');
 var FunctionDescriber = require('../components/FunctionDescriber');
 var TestResultFormatter = require('./components/TestResultFormatter');
 
-describe('FileLoctor', function() {
-  it('should find test files', function() {
+describe('FileLocator', function() {
+  it('should find test files recursively', function() {
     var fileLocator = new FileLocator('test/source_examples');
-    fileLocator.getFiles(function(files) {
-      assert.equal(files.length, 1);
-      assert.equal(files[0], '1.js');
+    fileLocator.getFiles().then(function(files) {
+      var assumedFiles = [
+        'test/source_examples/1.js',
+        'test/source_examples/subdir/1.js',
+        'test/source_examples/subdir/2.js',
+        'test/source_examples/subdir/subdir2/x.js'
+      ];
+      for (var i in assumedFiles) {
+        assert.notEqual(files.indexOf(assumedFiles[i]), -1);
+      }
+      assert.equal(files.length, assumedFiles.length);
     });
   });
 });
@@ -23,7 +31,8 @@ describe('FunctionDescriber', function() {
         'test/source_examples/1.js anonymous 1 i',
         'test/source_examples/1.js anonymous 2 firsArg, secondArg',
         'test/source_examples/1.js b 6 i, j',
-        'test/source_examples/1.js c 12 k, l, m'
+        'test/source_examples/1.js c 12 k, l, m',
+        'test/source_examples/subdir/subdir2/x.js x 1'
       ];
       var callbacksCount = 0;
       var foundFunctionsCount = 0;

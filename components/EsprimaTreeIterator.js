@@ -25,6 +25,9 @@ EsprimaTreeIterator.prototype = {
       }
       case 'ExpressionStatement': {
         this.traverse(tree.expression.callee);
+        for (var i in tree.expression.arguments) {
+          this.traverse(tree.expression.arguments[i]);
+        }
         break;
       }
       case 'VariableDeclaration': {
