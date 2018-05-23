@@ -16,3 +16,6 @@ function fake () {};
 $.each(arr, function (index, value){
   if (value.id != e) arrelem.push(value);
 });
+
+$.each(arr, (index) => {
+});

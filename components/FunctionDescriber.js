@@ -18,7 +18,9 @@ FunctionDescriber.prototype = {
   },
 
   getFunctionDescriptionCallback: function(node) {
+    debugger;
     switch(node.type) {
+      case 'ArrowFunctionExpression':
       case 'FunctionDeclaration':
       case 'FunctionExpression': {
         this.resultFormatter.describeFunction(node, this.filename);

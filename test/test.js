@@ -31,20 +31,23 @@ describe('FunctionDescriber', function() {
         'test/source_examples/1.js anonymous 1 i',
         'test/source_examples/1.js anonymous 2 firsArg, secondArg',
         'test/source_examples/1.js b 6 i, j',
-        'test/source_examples/1.js c 12 k, l, m'
+        'test/source_examples/1.js c 12 k, l, m',
+        'test/source_examples/1.js anonymous 16 index, value',
+        'test/source_examples/1.js anonymous 20 index',
       ];
       var callbacksCount = 0;
       var foundFunctionsCount = 0;
       var functionDescriber = new FunctionDescriber(fileAsString, filename, new TestResultFormatter(function(result) {
         callbacksCount++;
         var indexOfResult = functionResults.indexOf(result);
+        assert.notEqual(indexOfResult, -1);
         if (-1 !== indexOfResult) {
           foundFunctionsCount++;
           delete(functionResults[indexOfResult]);
         }
       }));
       functionDescriber.parse();
-      assert.equal(foundFunctionsCount, 4);
+      assert.equal(foundFunctionsCount, functionResults.length);
     });
   });
 });
