@@ -10,11 +10,14 @@ var FunctionDescriber = function(fileAsString, filename, resultFormatter) {
 FunctionDescriber.prototype = {
 
   parse: function() {
-    this.parsedByEsprima = esprima.parseScript(this.fileAsString, { loc: true });
-    functionDescriptionGettingIterator = new EsprimaTreeIterator((tree) => {
-      this.getFunctionDescriptionCallback(tree);
-    });
-    functionDescriptionGettingIterator.traverse(this.parsedByEsprima);
+    var node = esprima.parseScript(this.fileAsString, { loc: true });
+    var generator = EsprimaTreeIterator(node);
+    debugger;
+    var res = generator.next();
+    while (!res.done) {
+      this.getFunctionDescriptionCallback(res.value);
+      res = generator.next();
+    }
   },
 
   getFunctionDescriptionCallback: function(node) {

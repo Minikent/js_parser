@@ -1,47 +1,50 @@
-var EsprimaTreeIterator = function(callback) {
-  this.callback = callback;
-};
-
-EsprimaTreeIterator.prototype = {
-  traverse: function(tree) {
-    if (!tree) {
-      return;
+function *EsprimaTreeIterator(node) {
+  var subtrees = [];
+  if (!node) {
+    debugger;
+  }
+  switch (node.type) {
+    case 'BlockStatement':
+    case 'Program': {
+      for (var i in node.body) {
+        subtrees.push(node.body[i]);
+      }
+      break;
     }
-    this.callback(tree);
-    switch (tree.type) {
-      case 'BlockStatement':
-      case 'Program': {
-        for (var i in tree.body) {
-          this.traverse(tree.body[i]);
-        }
-        break;
+    case 'ArrowFunctionExpression':
+    case 'FunctionExpression':
+    case 'FunctionDeclaration': {
+      for (var i in node.body.body) {
+        subtrees.push(node.body.body[i]);
       }
-      case 'ArrowFunctionExpression':
-      case 'FunctionExpression':
-      case 'FunctionDeclaration': {
-        for (var i in tree.body.body) {
-          this.traverse(tree.body.body[i]);
-        }
-        break;
-      }
-      case 'ExpressionStatement': {
-        this.traverse(tree.expression.callee);
-        for (var i in tree.expression.arguments) {
-          this.traverse(tree.expression.arguments[i]);
-        }
-        break;
-      }
-      case 'VariableDeclaration': {
-        for (var i in tree.declarations) {
-          this.traverse(tree.declarations[i]);
-        }
-        break;
-      }
-      case 'VariableDeclarator': {
-        this.traverse(tree.init);
-        break;
-      }
+      break;
     }
+    case 'ExpressionStatement': {
+      subtrees.push(node.expression.callee);
+      for (var i in node.expression.arguments) {
+        subtrees.push(node.expression.arguments[i]);
+      }
+      break;
+    }
+    case 'VariableDeclaration': {
+      for (var i in node.declarations) {
+        subtrees.push(node.declarations[i]);
+      }
+      break;
+    }
+    case 'VariableDeclarator': {
+      subtrees.push(node.init);
+      break;
+    }
+  }
+  if (!subtrees.length) {
+    return;
+  }
+  for (var i in subtrees) {
+    if (subtrees[i]) {
+      yield subtrees[i];
+    }
+    yield* EsprimaTreeIterator(subtrees[i]);
   }
 };
 

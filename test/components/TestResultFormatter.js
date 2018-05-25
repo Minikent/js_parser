@@ -17,7 +17,7 @@ TestResultFormatter.prototype = {
       paramNames.push(node.params[i].name);
     }
 
-    this.callback( filename + ' ' + funcName + ' ' + node.loc.start.line + ' ' + paramNames.join(', '));
+    this.callback(filename + ' ' + funcName + ' ' + node.loc.start.line + ' ' + paramNames.join(', '));
   }
 };
 module.exports = TestResultFormatter;
